@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CropGuard AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <div class="logo">🌱</div>
+
+            <div>
+                <h1>CropGuard AI</h1>
+                <p>AI-powered crop disease detection</p>
+            </div>
+        </header>
+
+
+        <main>
+
+            <div class="hero">
+                <h2>Detect crop diseases instantly</h2>
+
+                <p>
+                    Upload a clear image of a crop leaf
+                    and let our AI analyze it.
+                </p>
+            </div>
+
+
+            <form action="/predict"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <div class="upload-box">
+
+                    <div class="upload-icon">
+                        📷
+                    </div>
+
+                    <h3>Upload a leaf image</h3>
+
+                    <p>
+                        JPG, JPEG or PNG
+                    </p>
+
+                    <label for="image"
+                           class="choose-btn">
+                        Choose Image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        accept="image/*"
+                        required
+                    >
+
+                    <p id="file-name"></p>
+
+                </div>
+
+
+                <button type="submit"
+                        class="analyze-btn">
+                    Analyze Leaf →
+                </button>
+
+            </form>
+
+        </main>
+
+
+        <footer>
+            <p>
+                Powered by AI • Crop disease detection
+            </p>
+        </footer>
+
+    </div>
+
+
+    <script>
+
+        const imageInput =
+            document.getElementById("image");
+
+        const fileName =
+            document.getElementById("file-name");
+
+
+        imageInput.addEventListener(
+            "change",
+            function () {
+
+                if (this.files.length > 0) {
+
+                    fileName.textContent =
+                        "Selected: " +
+                        this.files[0].name;
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>

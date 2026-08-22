@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CropGuard AI - Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <div class="logo">🌱</div>
+
+        <div>
+
+            <h1>CropGuard AI</h1>
+
+            <p>AI-powered crop disease detection</p>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <div class="hero">
+
+            <h2>Analysis Complete</h2>
+
+            <p>
+                Our AI analyzed your uploaded leaf image.
+            </p>
+
+        </div>
+
+
+        <div class="result-card">
+
+            <div class="result-header">
+
+                <div>
+
+                    <span class="result-label">
+                        Most likely condition
+                    </span>
+
+                    <h2>
+                        {{ results[0].disease
+                           | replace("_", " ") }}
+                    </h2>
+
+                </div>
+
+                <div class="confidence-circle">
+
+                    {{ results[0].confidence }}%
+
+                </div>
+
+            </div>
+
+
+            <div class="confidence-section">
+
+                <div class="confidence-title">
+
+                    <span>AI Confidence</span>
+
+                    <strong>
+                        {{ results[0].confidence }}%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress">
+
+                    <div class="progress-bar"
+                         style="width: {{ results[0].confidence }}%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-grid">
+
+                <div class="info-box">
+
+                    <span>🌾 Crop</span>
+
+                    <strong>
+
+                        {% if "Corn" in results[0].disease %}
+                            Corn
+                        {% elif "Tomato" in results[0].disease %}
+                            Tomato
+                        {% elif "Apple" in results[0].disease %}
+                            Apple
+                        {% else %}
+                            Unknown
+                        {% endif %}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span>🔍 Status</span>
+
+                    <strong>
+
+                        {% if "Healthy" in results[0].disease %}
+                            Healthy
+                        {% else %}
+                            Disease Detected
+                        {% endif %}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="other-results">
+
+                <h3>
+                    Other possible predictions
+                </h3>
+
+
+                {% for result in results[1:] %}
+
+                <div class="prediction-row">
+
+                    <span>
+                        {{ result.disease
+                           | replace("_", " ") }}
+                    </span>
+
+                    <strong>
+                        {{ result.confidence }}%
+                    </strong>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <a href="/" class="analyze-btn">
+
+                Analyze Another Leaf →
+
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            CropGuard AI • AI-assisted crop disease detection
+        </p>
+
+    </footer>
+
+</div>
+
+</body>
+
+</html>
